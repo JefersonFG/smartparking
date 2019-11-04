@@ -30,4 +30,5 @@ dependencies {
         jcenter()
     }
     implementation 'me.dm7.barcodescanner:zxing:1.9.13'
+    implementation 'com.squareup.okhttp3:okhttp:4.2.2'
 }
