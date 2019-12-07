@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NewUserActivity">
+
+    <EditText
+        android:id="@+id/email_input"
+        android:layout_width="278dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/email_label"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="1dp"
+        android:ems="10"
+        android:hint="Digite seu email"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="100dp" />
+
+    <EditText
+        android:id="@+id/conta_input"
+        android:layout_width="278dp"
+        android:layout_height="47dp"
+        android:layout_below="@+id/conta_label"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="1dp"
+        android:ems="10"
+        android:hint="Digite o número da sua conta bancária"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/username_input"
+        android:layout_width="278dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/username_label"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="1dp"
+        android:ems="10"
+        android:hint="Digite seu username"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:layout_centerHorizontal="true"
+        android:id="@+id/password_input"
+        android:layout_width="278dp"
+        android:layout_height="47dp"
+        android:layout_below="@+id/password_label"
+        android:layout_marginTop="1dp"
+        android:ems="10"
+        android:hint="Digite sua senha"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="304dp" />
+
+    <TextView
+        android:id="@+id/password_label"
+        android:layout_width="60dp"
+        android:layout_height="18dp"
+        android:layout_below="@+id/username_input"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="27dp"
+        android:text="Senha"
+        tools:layout_editor_absoluteY="286dp" />
+
+    <Button
+        android:id="@+id/confirmar_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/conta_input"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:text="Confirmar"
+        tools:layout_editor_absoluteX="42dp" />
+
+    <TextView
+        android:id="@+id/username_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/email_input"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="27dp"
+        android:text="Nome de Usuário" />
+
+    <TextView
+        android:id="@+id/conta_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/password_input"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="27dp"
+        android:text="Conta bancária" />
+
+    <TextView
+        android:layout_centerHorizontal="true"
+        android:id="@+id/email_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="32dp"
+        android:text="Email" />
+
+
+</RelativeLayout>

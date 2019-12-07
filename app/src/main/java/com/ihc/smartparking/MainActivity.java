@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -24,14 +25,22 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LoginDialog.LoginDialogListener {
 
     public final int qr_request_code = 0;
     private final OkHttpClient client = new OkHttpClient();
     private String user_id;
 
+    // interface buttons:
+    private Button login_button;
+    private Button new_user_button;
+    private Button qrcode_test;
+    // ---------
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getSupportActionBar().hide();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -49,9 +58,35 @@ public class MainActivity extends AppCompatActivity {
 
         // TODO Overly simple permission request, should be checked and called when used, deal with not granted
         ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, 0);
+
+        // -----------------------------
+        // buttons config:
+        login_button = (Button) findViewById(R.id.login_button);
+        login_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openLoginDialog();
+            }
+        });
+        new_user_button = (Button) findViewById(R.id.new_user_button);
+        new_user_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openNewUserActivity();
+            }
+        });
+        qrcode_test = (Button) findViewById(R.id.qrcode_test);
+        qrcode_test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                readQRCodeClick(this);
+            }
+        });
+        // -----------------------------
+
     }
 
-    public void readQRCodeClick(View view) {
+    public void readQRCodeClick(View.OnClickListener view) {
         Intent i = new Intent(this, SimpleScannerActivity.class);
         startActivityForResult(i, qr_request_code);
     }
@@ -105,5 +140,42 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+
     }
+
+
+    // --------------------------------------------------------------------------------
+    // - abre dialog do login:
+    public void openLoginDialog() {
+        LoginDialog exampleDialog = new LoginDialog();
+        exampleDialog.show(getSupportFragmentManager(),
+                "example dialog");
+    }
+
+    // - abre activity de new user:
+    public void openNewUserActivity() {
+        Intent intent = new Intent(this, NewUserActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void applyTexts(String username, String password) {
+        //openDialog(password);
+
+        if (!DatabaseRequisition.is_valid_user(username, password)) {
+            NewAlertDialog dialog = new NewAlertDialog("Usuário ou senha inválidos!");
+            dialog.show(getSupportFragmentManager(), "example dialog");
+        }
+        else {
+            // faz login do usuário.
+        }
+    }
+
+    // - abre dialog com mensagem.
+    public void openDialog(String message) {
+        NewAlertDialog dialog = new NewAlertDialog(message);
+        dialog.show(getSupportFragmentManager(), "example dialog");
+    }
+    // --------------------------------------------------------------------------------
+
 }

@@ -1,6 +1,8 @@
 package com.ihc.smartparking;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -51,4 +53,5 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
         setResult(RESULT_OK, data);
         finish();
     }
+
 }
