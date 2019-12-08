@@ -5,9 +5,15 @@ import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.nfc.NdefMessage;
+import android.nfc.NfcAdapter;
+import android.nfc.Tag;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -38,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements LoginDialog.Login
         getSupportActionBar().hide();
 
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         // -----------------------------
@@ -58,6 +65,68 @@ public class MainActivity extends AppCompatActivity implements LoginDialog.Login
         });
         // -----------------------------
 
+    }
+
+    public void onResume() {
+        super.onResume();
+        Intent intent = getIntent();
+        if (intent.getAction() != null) {
+            // tag received when app is not running and not in the foreground:
+            if (intent.getAction().equals(NfcAdapter.ACTION_NDEF_DISCOVERED)) {
+                this.onNewIntent(intent);
+            }
+        }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
+            Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+            Parcelable[] rawMessages =
+                    intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+
+            if (rawMessages != null && rawMessages.length > 0) {
+
+                //Log.i(TAG, "message size = " + messages.length);
+
+                // only one message sent during the Android beam
+                // so you can just grab the first record.
+                NdefMessage msg = (NdefMessage) rawMessages[0];
+
+                // record 0 contains the MIME type, record 1 is the AAR, if present
+
+                String strMimeType = msg.getRecords()[0].toMimeType();
+                String payloadStringData = new String(msg.getRecords()[0].getPayload());
+
+                if (strMimeType.equals("smartparking/entrada")) {
+                    onNewTagEntrada(payloadStringData);
+                }
+                else if (strMimeType.equals("smartparking/saida")) {
+                    onNewTagSaida(payloadStringData);
+                }
+                else {
+                    new AlertDialog.Builder(MainActivity.this)
+                            .setTitle(strMimeType)
+                            .setMessage(payloadStringData)
+                            .show();
+                }
+            }
+        }
+    }
+
+    public void onNewTagEntrada(String payload) {
+        new AlertDialog.Builder(MainActivity.this)
+                .setTitle("Nova entrada")
+                .setMessage(payload)
+                .show();
+    }
+
+    public void onNewTagSaida(String payload) {
+        new AlertDialog.Builder(MainActivity.this)
+                .setTitle("Nova saida")
+                .setMessage(payload)
+                .show();
     }
 
     // --------------------------------------------------------------------------------
