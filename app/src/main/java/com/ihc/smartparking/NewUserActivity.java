@@ -2,6 +2,7 @@ package com.ihc.smartparking;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -48,6 +49,14 @@ public class NewUserActivity extends AppCompatActivity {
             dialog.show(getSupportFragmentManager(), "example dialog");
         } else {
             // registra novo usuário no banco de dados.
+            if (DatabaseRequisition.new_user(email, username, password, conta)) {
+                NewAlertDialog dialog = new NewAlertDialog("Usuário registrado com sucesso!");
+                dialog.show(getSupportFragmentManager(), "example dialog");
+            }
+            else {
+                NewAlertDialog dialog = new NewAlertDialog("Erro ao registrar novo usuário.");
+                dialog.show(getSupportFragmentManager(), "example dialog");
+            }
         }
 
     }
