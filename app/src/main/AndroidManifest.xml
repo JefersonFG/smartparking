@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.NFC" />
-    <uses-sdk android:minSdkVersion="10"/>
+    <!--    <uses-sdk android:minSdkVersion="10"/> -->     <!--  tive que comentar pois dava erro no android studio  -->
 
 
     <application

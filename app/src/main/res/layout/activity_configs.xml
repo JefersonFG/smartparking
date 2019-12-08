@@ -82,7 +82,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Nova conta bancária"
-        android:inputType="textPersonName" />
+        android:inputType="number" />
 
     <Button
         android:layout_marginTop="26dp"

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.TimeZone;
 import java.util.UUID;
@@ -38,16 +39,26 @@ public class LoggedActivity extends AppCompatActivity implements IsencaoDialog.I
     private Button button_sair;
     private Button button_configs;
     private Button button_qr_code;
+    private Button button_historico;
 
     // user:
     private String username = "defaultuser";
     private String password = "defaultpassword";
+
+    private ArrayList<Registro> registros;
+
+    private final double price = 5.0;  // preco do estacionamento cada meia hora.
+
+    private boolean isento = false;
     // ---------
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logged);
+
+        registros = new ArrayList<>();
+
 
         // qr code:
         // TODO Overly simple id gereration, implement user sign up and sign in
@@ -104,7 +115,14 @@ public class LoggedActivity extends AppCompatActivity implements IsencaoDialog.I
             }
         });
 
+        button_historico = (Button) findViewById(R.id.historico);
+        button_historico.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                open_historico();
+            }
 
+        });
 
     }
 
@@ -123,6 +141,7 @@ public class LoggedActivity extends AppCompatActivity implements IsencaoDialog.I
     @Override
     public void applyText(String codigo_isencao) {
         if (DatabaseRequisition.isencao(username, codigo_isencao)) {
+            isento = true;
             NewAlertDialog dialog = new NewAlertDialog("Isenção realizada com sucesso!");
             dialog.show(getSupportFragmentManager(), "example dialog");
         }
@@ -132,6 +151,36 @@ public class LoggedActivity extends AppCompatActivity implements IsencaoDialog.I
         }
     }
 
+
+    public void open_historico() {
+        HistoricoDialog historico_dialog = new HistoricoDialog(registros);
+        historico_dialog.show(getSupportFragmentManager(), "example dialog");
+    }
+
+    public void registra_entrada() {
+        Registro entrada = new Registro("Entrada");
+        registros.add(entrada);
+        new AlertDialog.Builder(LoggedActivity.this)
+                .setTitle("Informação")
+                .setMessage("Entrada registrada com sucesso!")
+                .show();
+    }
+
+    public void registra_saida() {
+        Registro saida = new Registro("Saida");
+        Registro last = registros.get(registros.size() - 1);
+        double tempo = saida.time - last.time;
+        if (!isento)
+            saida.valor = Math.ceil(tempo / (60 * 30)) * price;
+        else
+            saida.valor = -1;
+        registros.add(saida);
+
+        new AlertDialog.Builder(LoggedActivity.this)
+                .setTitle("Informação")
+                .setMessage("Saida registrada com sucesso!")
+                .show();
+    }
 
     // ----------------------------------------------------------------------------------------
     // qr code:
@@ -143,10 +192,20 @@ public class LoggedActivity extends AppCompatActivity implements IsencaoDialog.I
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == qr_request_code) {
             if (resultCode == RESULT_OK) {
+
                 // Checks the QR Code data
                 String returnedResult = data.getDataString();
 
-                if (returnedResult.equals("parking_test")) {
+                // Teste de entrada ou saida no estacionamento:
+                if (returnedResult.equals("entrada")) {
+                    registra_entrada();
+                }
+                else if (returnedResult.equals("saida")) {
+                    registra_saida();
+                }
+                // ----------------------------------
+
+                else if (returnedResult.equals("parking_test")) {
                     // Get current time in ISO 8601 format
                     TimeZone tz = TimeZone.getTimeZone("UTC");
                     DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");

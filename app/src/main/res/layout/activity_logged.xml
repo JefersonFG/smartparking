@@ -8,11 +8,11 @@
 
     <view
         android:id="@+id/view"
-        android:layout_centerHorizontal="true"
         class="androidx.constraintlayout.widget.ConstraintLayout"
         android:layout_width="152dp"
         android:layout_height="61dp"
         android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp" />
 
     <ImageView
@@ -38,29 +38,29 @@
         android:textSize="18sp" />
 
     <Button
-        android:layout_centerHorizontal="true"
         android:id="@+id/isencao"
-        android:layout_width="wrap_content"
+        android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/view"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="27dp"
         android:text="Inserir código de isenção" />
 
     <Button
-        android:layout_centerHorizontal="true"
         android:id="@+id/configuracoes"
-        android:layout_width="wrap_content"
+        android:layout_width="220dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/isencao"
+        android:layout_below="@+id/historico"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="27dp"
         android:text="Alterar configurações" />
 
     <Button
-        android:layout_centerHorizontal="true"
         android:id="@+id/qrcode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/registrar"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="2dp"
         android:text="QR Code" />
 
@@ -84,6 +84,15 @@
         android:layout_marginTop="126dp"
         android:backgroundTint="#C4F44336"
         android:text="Sair" />
+
+    <Button
+        android:layout_marginTop="27dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/isencao"
+        android:id="@+id/historico"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:text="Histórico" />
 
 
 </RelativeLayout>

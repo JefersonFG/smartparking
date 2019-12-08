@@ -5,9 +5,10 @@
     >
 
     <EditText
+        android:inputType="number"
         android:hint="Digite o código de isenção"
         android:id="@+id/codigo_isencao_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-    
+
 </RelativeLayout>

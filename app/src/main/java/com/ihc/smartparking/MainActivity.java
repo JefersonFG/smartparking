@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity implements LoginDialog.Login
         getSupportActionBar().hide();
 
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
 
         // -----------------------------
@@ -67,6 +66,8 @@ public class MainActivity extends AppCompatActivity implements LoginDialog.Login
 
     }
 
+    // --------------------------------------------------------------------------------
+    // NFC:
     public void onResume() {
         super.onResume();
         Intent intent = getIntent();
