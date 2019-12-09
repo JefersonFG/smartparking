@@ -13,7 +13,6 @@ public class NewUserActivity extends AppCompatActivity {
     private EditText email_text;
     private EditText username_text;
     private EditText password_text;
-    private EditText conta_text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +32,6 @@ public class NewUserActivity extends AppCompatActivity {
         email_text = findViewById(R.id.email_input);
         username_text = findViewById(R.id.username_input);
         password_text = findViewById(R.id.password_input);
-        conta_text = findViewById(R.id.conta_input);
     }
 
     public void confirmar_new_user() {
@@ -41,7 +39,6 @@ public class NewUserActivity extends AppCompatActivity {
         String email = email_text.getText().toString();
         String username = username_text.getText().toString();
         String password = password_text.getText().toString();
-        String conta = conta_text.getText().toString();
 
         // leu dados do novo usuario.
         if (DatabaseRequisition.user_exist(username)) {
@@ -49,7 +46,7 @@ public class NewUserActivity extends AppCompatActivity {
             dialog.show(getSupportFragmentManager(), "example dialog");
         } else {
             // registra novo usuário no banco de dados.
-            if (DatabaseRequisition.new_user(email, username, password, conta)) {
+            if (DatabaseRequisition.new_user(email, username, password)) {
                 NewAlertDialog dialog = new NewAlertDialog("Usuário registrado com sucesso!");
                 dialog.show(getSupportFragmentManager(), "example dialog");
             }

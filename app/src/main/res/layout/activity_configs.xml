@@ -66,28 +66,10 @@
         android:hint="Nova senha"
         android:inputType="textPassword" />
 
-    <CheckBox
-        android:id="@+id/checkBox2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/nova_senha"
-        android:layout_marginTop="23dp"
-        android:text="Alterar conta bancária" />
-
-    <EditText
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/checkBox2"
-        android:id="@+id/alterar_conta"
-        android:layout_width="343dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Nova conta bancária"
-        android:inputType="number" />
-
     <Button
         android:layout_marginTop="26dp"
-        android:layout_below="@+id/alterar_conta"
-        android:layout_alignLeft="@+id/alterar_conta"
+        android:layout_below="@+id/nova_senha"
+        android:layout_alignLeft="@+id/nova_senha"
         android:id="@+id/confirmar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -95,9 +77,9 @@
 
     <Button
         android:layout_marginTop="26dp"
-        android:layout_below="@+id/alterar_conta"
+        android:layout_below="@+id/nova_senha"
         android:id="@+id/cancelar"
-        android:layout_alignRight="@+id/alterar_conta"
+        android:layout_alignRight="@+id/nova_senha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cancelar" />

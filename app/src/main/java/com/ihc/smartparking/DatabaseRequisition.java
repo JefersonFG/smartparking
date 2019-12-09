@@ -17,7 +17,7 @@ public class DatabaseRequisition {
         return true;
     }
 
-    public static boolean new_user(String email, String username, String password, String conta) {
+    public static boolean new_user(String email, String username, String password) {
         // retornar booleano dizendo se foi possivel registrar o usuario no banco de dados.
         return true;
     }
