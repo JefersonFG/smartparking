@@ -4,6 +4,7 @@
 ### Android ###
 # Built application files
 *.apk
+!apk/smartparking.apk
 *.ap_
 *.aab
 
