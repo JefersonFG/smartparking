@@ -28,7 +28,7 @@ public class LoginDialog extends AppCompatDialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                     }
                 })
-                .setPositiveButton("Login", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String username = login_username_text.getText().toString();
